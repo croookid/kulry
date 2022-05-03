@@ -28,7 +28,7 @@ setInterval(function() {
 const pageTop = document.querySelector('#pageTop')
 window.addEventListener("scroll", function(){
     let y = window.pageYOffset;
-    if(y > 150){
+    if(y > 400){
       pageTop.style.opacity = '1';
       pageTop.style.bottom = '15px';
     }else{
