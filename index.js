@@ -64,6 +64,7 @@ slider.addEventListener('mouseover', function(){
   })
 })
 slider.addEventListener('mouseout', function(){
+  if (pressed) {return}
   interval = setInterval(imgSlider, 1000)
   sliderButton.forEach((e)=>{
     e.style.opacity = 0;
@@ -88,6 +89,7 @@ window.addEventListener('mouseup', ()=>{
   pressed = false;
 })
 
+
 slides.addEventListener('mousemove', (e)=>{
   if(!pressed) return;
   x = e.offsetX 
@@ -101,12 +103,13 @@ slides.addEventListener('mousemove', (e)=>{
 })
 })
 slides.addEventListener('mouseup', (e)=>{
-  console.log(1)
+  if (!pressed) return;
   if ((x-startx) > (parseInt(currentPx, 10)) * 0.1){
     imgSliderLeft();
   }
   if (-(x-startx) > parseInt(currentPx, 10) * 0.1){
     imgSlider();
+
   }
   if (Math.abs(x-startx) < (parseInt(currentPx, 10)) * 0.1){
     slides.animate({
@@ -116,24 +119,34 @@ slides.addEventListener('mouseup', (e)=>{
       iterations: 1,
       fill: "both"
   })
+  
   }
 } 
 )
-slides.addEventListener('mouseout', function(){
-  if ((x-startx) > (parseInt(currentPx, 10)) * 0.1){
-    imgSliderLeft();
-  }
-  if (-(x-startx) > parseInt(currentPx, 10) * 0.1){
-    imgSlider();
-  }
-  if (Math.abs(x-startx) < (parseInt(currentPx, 10)) * 0.1){
-    slides.animate({
-      marginLeft: [currentMarginLeft + "px" , startmargin]
-  }, {
-      duration: 0.00000000000000001,
-      iterations: 1,
-      fill: "both"
-  })
+
+slides.addEventListener('mouseleave', function(){
+ 
+  if (!pressed){ return}
+  console.log(1)
+    if ((x-startx) > (parseInt(currentPx, 10)) * 0.1){
+      imgSliderLeft();
+      return
+    }
+    if (-(x-startx) > parseInt(currentPx, 10) * 0.1){
+      imgSlider();
+      return
+    }
+    if (Math.abs(x-startx) < (parseInt(currentPx, 10)) * 0.1){
+      slides.animate({
+        marginLeft: [currentMarginLeft + "px" , startmargin]
+    }, {
+        duration: 0.00000000000000001,
+        iterations: 1,
+        fill: "both"
+    }
+    )
+    pressed = false
+    return
   }
 })
 // top button
