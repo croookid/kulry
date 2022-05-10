@@ -119,7 +119,23 @@ slides.addEventListener('mouseup', (e)=>{
   }
 } 
 )
-
+slides.addEventListener('mouseout', function(){
+  if ((x-startx) > (parseInt(currentPx, 10)) * 0.1){
+    imgSliderLeft();
+  }
+  if (-(x-startx) > parseInt(currentPx, 10) * 0.1){
+    imgSlider();
+  }
+  if (Math.abs(x-startx) < (parseInt(currentPx, 10)) * 0.1){
+    slides.animate({
+      marginLeft: [currentMarginLeft + "px" , startmargin]
+  }, {
+      duration: 0.00000000000000001,
+      iterations: 1,
+      fill: "both"
+  })
+  }
+})
 // top button
 const pageTop = document.querySelector('#pageTop')
 window.addEventListener("scroll", function(){
